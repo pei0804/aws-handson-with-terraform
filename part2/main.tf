@@ -21,10 +21,29 @@ resource aws_vpc handson {
 resource aws_subnet public {
   vpc_id     = aws_vpc.handson.id
   cidr_block = "10.0.1.0/24"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = local.name
   }
+}
+
+################
+# Security Group
+################
+
+resource aws_security_group handson {
+  vpc_id      = aws_vpc.handson.id
+  name        = local.name
+}
+
+resource aws_security_group_rule out {
+  security_group_id = aws_security_group.handson.id
+  type = "egress"
+  cidr_blocks = ["0.0.0.0/0"]
+  protocol = "-1"
+  from_port = 0
+  to_port = 65535
 }
 
 ##################
@@ -32,6 +51,27 @@ resource aws_subnet public {
 ##################
 resource aws_internet_gateway handson {
   vpc_id = aws_vpc.handson.id
+}
+
+#############
+# Route Table
+#############
+resource aws_route_table handson_public {
+  vpc_id = aws_vpc.handson.id
+  tags = {
+    Name = local.name
+  }
+}
+
+resource aws_route igw {
+  route_table_id = aws_route_table.handson_public.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.handson.id
+}
+
+resource aws_route_table_association handson_public {
+  subnet_id = aws_subnet.public.id
+  route_table_id = aws_route_table.handson_public.id
 }
 
 ##############
@@ -45,6 +85,7 @@ resource aws_instance handson {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.handson.id
+  security_groups = [aws_security_group.handson.id]
 
   subnet_id = aws_subnet.public.id
 
