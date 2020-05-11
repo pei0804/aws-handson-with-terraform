@@ -50,10 +50,41 @@ data aws_ami handson {
 resource aws_instance handson {
   ami           = data.aws_ami.handson.id
   instance_type = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.handson.id
 
   subnet_id = aws_subnet.public.id
 
   tags = {
     Name = local.name
   }
+}
+
+
+######################
+# IAM Instance Profile
+######################
+resource aws_iam_instance_profile handson {
+  name = "Handson"
+  role = aws_iam_role.handson.name
+}
+
+resource aws_iam_role handson {
+  name = "Handson"
+  path = "/"
+
+  assume_role_policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+               "Service": "ec2.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+EOF
 }
