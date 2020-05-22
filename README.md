@@ -7,7 +7,7 @@ CLIで作る場合は、お好みのバージョンを使ってください。
 ```
 ❯ aws --version
 aws-cli/1.18.56 Python/3.7.0 Darwin/17.7.0 botocore/1.16.6
-❯ aws s3api --profile pei create-bucket --bucket pei-sandbox-tfstate --create-bucket-configuration LocationConstraint=ap-northeast-1
+❯ aws s3api create-bucket --bucket pei-sandbox-tfstate --create-bucket-configuration LocationConstraint=ap-northeast-1
 {
     "Location": "http://pei-sandbox-tfstate.s3.amazonaws.com/"
 }
@@ -26,6 +26,12 @@ TFSTATE_BUCKET := pei-sandbox-tfstate
 
 ```
 AWS_PROFILE := pei
+```
+
+特にプロファイルの設定をしてない場合はdefaultで動きます
+
+```
+AWS_PROFILE := default
 ```
 
 設定を適用
