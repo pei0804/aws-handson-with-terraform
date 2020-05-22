@@ -40,8 +40,8 @@ resource aws_security_group_rule out {
   type = "egress"
   cidr_blocks = ["0.0.0.0/0"]
   protocol = "-1"
-  from_port = 0
-  to_port = 65535
+  from_port = -1
+  to_port = -1
 }
 
 resource aws_security_group_rule icmp {
