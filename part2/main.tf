@@ -99,10 +99,7 @@ resource aws_instance handson {
   tags = {
     Name = local.name
   }
-
-  depends_on = [aws_internet_gateway.handson]
 }
-
 
 ######################
 # IAM Instance Profile
