@@ -18,7 +18,7 @@ resource aws_vpc handson {
 ########
 # Subnet
 ########
-resource aws_subnet public {
+resource aws_subnet handson {
   vpc_id     = aws_vpc.handson.id
   cidr_block = "10.0.1.0/24"
 
@@ -38,7 +38,7 @@ resource aws_instance handson {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
 
-  subnet_id = aws_subnet.public.id
+  subnet_id = aws_subnet.handson.id
 
   tags = {
     Name = local.name
