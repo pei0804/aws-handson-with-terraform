@@ -35,6 +35,7 @@ data aws_ssm_parameter amzn_ami {
 ######
 resource aws_instance handson {
   ami           = data.aws_ssm_parameter.amzn_ami.value
+  subnet_id     = aws_subnet.handson.id
   instance_type = "t2.micro"
 
   tags = {
