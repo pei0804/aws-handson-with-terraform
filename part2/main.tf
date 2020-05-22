@@ -46,6 +46,15 @@ resource aws_security_group_rule out {
   to_port = 65535
 }
 
+resource aws_security_group_rule icmp {
+  security_group_id = aws_security_group.handson.id
+  type = "ingress"
+  cidr_blocks = ["0.0.0.0/0"]
+  protocol  = "icmp"
+  from_port = -1
+  to_port   = -1
+}
+
 ##################
 # Internet Gateway
 ##################
