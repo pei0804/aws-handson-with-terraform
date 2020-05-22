@@ -1,9 +1,9 @@
-AWS_PROFILE := pei
+AWS_PROFILE := default
 AWS_DEFAULT_REGION := ap-northeast-1
 TERRAFORM_VERSION := 0.12.24
 
 SCOPE :=
-TFSTATE_BUCKET := pei-sandbox-tfstate
+TFSTATE_BUCKET := #change here
 TFSTATE_KEY = sandbox/$(SCOPE)/terraform.tfstate
 
 PAR := 50
