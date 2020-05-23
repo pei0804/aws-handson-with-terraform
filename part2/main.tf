@@ -92,7 +92,7 @@ resource aws_instance handson {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.handson.id
-  security_groups = [aws_security_group.handson.id]
+  vpc_security_group_ids = [aws_security_group.handson.id]
 
   subnet_id = aws_subnet.public.id
 
