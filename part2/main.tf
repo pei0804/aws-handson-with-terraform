@@ -35,22 +35,22 @@ resource aws_security_group handson {
   name        = local.name
 }
 
-resource aws_security_group_rule out {
+resource "aws_security_group_rule" "out" {
+  type              = "egress"
+  from_port         = -1
+  to_port           = -1
+  protocol          = "-1"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.handson.id
-  type = "egress"
-  cidr_blocks = ["0.0.0.0/0"]
-  protocol = "-1"
-  from_port = -1
-  to_port = -1
 }
 
-resource aws_security_group_rule icmp {
-  security_group_id = aws_security_group.handson.id
+resource "aws_security_group_rule" "in_icmp" {
   type = "ingress"
-  cidr_blocks = ["0.0.0.0/0"]
-  protocol  = "icmp"
   from_port = -1
-  to_port   = -1
+  to_port = -1
+  cidr_blocks = ["0.0.0.0/0"]
+  protocol = "icmp"
+  security_group_id = aws_security_group.handson.id
 }
 
 ##################
