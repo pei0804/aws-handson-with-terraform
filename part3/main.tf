@@ -156,8 +156,6 @@ resource aws_instance private {
   tags = {
     Name = "${local.name}-private"
   }
-
-  depends_on = [aws_internet_gateway.handson]
 }
 
 
