@@ -19,6 +19,7 @@ resource aws_vpc handson {
 resource aws_subnet public {
   vpc_id     = aws_vpc.handson.id
   cidr_block = "10.0.1.0/24"
+  availability_zone = "ap-northeast-1a"
   map_public_ip_on_launch = true
 
   tags = {
@@ -29,6 +30,7 @@ resource aws_subnet public {
 resource aws_subnet private {
   vpc_id     = aws_vpc.handson.id
   cidr_block = "10.0.2.0/24"
+  availability_zone = "ap-northeast-1b"
   map_public_ip_on_launch = false
 
   tags = {
