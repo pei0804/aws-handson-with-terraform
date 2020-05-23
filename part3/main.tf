@@ -130,26 +130,24 @@ data aws_ssm_parameter amzn2_ami {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
-resource aws_instance public {
+resource aws_instance handson {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.handson.id
-  security_groups = [aws_security_group.handson.id]
+  vpc_security_group_ids = [aws_security_group.handson.id]
 
   subnet_id = aws_subnet.public.id
 
   tags = {
-    Name = "${local.name}-public"
+    Name = local.name
   }
-
-  depends_on = [aws_internet_gateway.handson]
 }
 
 resource aws_instance private {
   ami = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.handson.id
-  security_groups = [aws_security_group.handson.id]
+  vpc_security_group_ids = [aws_security_group.handson.id]
 
   subnet_id = aws_subnet.private.id
 
