@@ -163,12 +163,12 @@ resource aws_instance private {
 # IAM Instance Profile
 ######################
 resource aws_iam_instance_profile handson {
-  name = "Handson"
+  name = local.name
   role = aws_iam_role.handson.name
 }
 
 resource aws_iam_role handson {
-  name = "Handson"
+  name = local.name
   path = "/"
 
   assume_role_policy = <<EOF
